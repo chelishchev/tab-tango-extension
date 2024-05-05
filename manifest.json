@@ -1,0 +1,56 @@
+{
+	"author": "Ivan Tarsis",
+	"background": {
+		"service_worker": "background_script.js"
+	},
+	"host_permissions": [
+		"*://*/*"
+	],
+	"permissions": [
+		"storage"
+	],
+	"action": {
+		"default_icon": {
+			"19": "assets/icons/icon_19.png",
+			"38": "assets/icons/icon_38.png"
+		}
+	},
+	"commands": {
+		"toggle-tab": {
+			"description": "Toggle tab",
+			"suggested_key": {
+				"default": "Alt+Q",
+				"mac": "Command+E"
+			}
+		},
+		"duplicate-tab": {
+			"description": "Duplicate tab",
+			"suggested_key": {
+				"default": "Alt+D",
+				"mac": "Command+D"
+			}
+		}
+	},
+	"description": "Tab Tango is a streamlined Chrome extension crafted for the ultimate browsing efficiency. Toggle between your most recently used tabs with a simple keyboard shortcut, ensuring a smooth and intuitive navigation experience. Enhanced with a quick tab duplication feature, Tab Tango keeps your workflow fluid and dynamic. Perfect for multitaskers and power users looking to optimize their browser usage without the fuss.",
+	"icons": {
+		"128": "assets/icons/icon_128.png",
+		"16": "assets/icons/icon_16.png",
+		"48": "assets/icons/icon_48.png"
+	},
+	"manifest_version": 3,
+	"name": "Tab Tango",
+	"options_page": "options.html",
+	"version": "1.0.0",
+	"web_accessible_resources": [
+		{
+			"resources": [
+			],
+			"matches": [
+				"<all_urls>"
+			],
+			"extension_ids": [
+				"*"
+			]
+		}
+	]
+}
