@@ -7,7 +7,8 @@
 		"*://*/*"
 	],
 	"permissions": [
-		"storage"
+		"storage",
+		"tabs"
 	],
 	"action": {
 		"default_icon": {
@@ -40,7 +41,7 @@
 	"manifest_version": 3,
 	"name": "Tab Tango",
 	"options_page": "options.html",
-	"version": "1.0.0",
+	"version": "1.1.0",
 	"web_accessible_resources": [
 		{
 			"resources": [
