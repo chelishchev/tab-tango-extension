@@ -24,6 +24,13 @@
 				"mac": "Command+E"
 			}
 		},
+		"highlight-previous-tab": {
+			"description": "Highlight previous tab",
+			"suggested_key": {
+				"default": "Shift+Alt+Q",
+				"mac": "Shift+Command+E"
+			}
+		},
 		"duplicate-tab": {
 			"description": "Duplicate tab",
 			"suggested_key": {
@@ -41,7 +48,7 @@
 	"manifest_version": 3,
 	"name": "Tab Tango",
 	"options_page": "options.html",
-	"version": "1.1.0",
+	"version": "1.1.2",
 	"web_accessible_resources": [
 		{
 			"resources": [

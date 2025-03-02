@@ -20,16 +20,19 @@ function updateShortcuts()
 {
 	const os = detectOS();
 	const toggleSpan = document.querySelector('#toggle-shortcut .shortcut');
+	const highlightSpan = document.querySelector('#highlight-shortcut .shortcut');
 	const duplicateSpan = document.querySelector('#duplicate-shortcut .shortcut');
 
 	if (os === 'Mac OS')
 	{
 		toggleSpan.textContent = '⌘+E';
+		highlightSpan.textContent = '⌘+Shift+E';
 		duplicateSpan.textContent = '⌘+D';
 	}
 	else
 	{
 		toggleSpan.textContent = 'Alt+Q';
+		highlightSpan.textContent = 'Alt+Shift+Q';
 		duplicateSpan.textContent = 'Alt+D';
 	}
 }

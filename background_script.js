@@ -1,6 +1,7 @@
 // Global variables
 let tabStore = {};
 let currentWindowId = null;
+let isPreviousTabHighlighted = false;
 
 // Initialize the current window ID
 async function initCurrentWindowId()
@@ -197,6 +198,7 @@ chrome.tabs.onActivated.addListener(async (activeInfo) => {
 	{
 		console.debug('Tab activated:', activeInfo);
 		currentWindowId = activeInfo.windowId;
+		isPreviousTabHighlighted = false;
 
 		// Make sure the window exists in our tab store
 		if (!tabStore[activeInfo.windowId])
@@ -311,6 +313,7 @@ async function refreshTabsForWindow(windowId)
 }
 
 // Command listeners for tab operations
+// Command listeners for tab operations
 chrome.commands.onCommand.addListener(async (command) => {
 	if (command === 'toggle-tab')
 	{
@@ -319,6 +322,10 @@ chrome.commands.onCommand.addListener(async (command) => {
 	else if (command === 'duplicate-tab')
 	{
 		await duplicateCurrentTab();
+	}
+	else if (command === 'highlight-previous-tab')
+	{
+		await highlightPreviousTab();
 	}
 });
 
@@ -403,6 +410,82 @@ async function duplicateCurrentTab()
 	catch (error)
 	{
 		console.error('Error in duplicateCurrentTab:', error);
+	}
+}
+
+// Function to highlight the previous tab
+async function highlightPreviousTab()
+{
+	try
+	{
+		// Make sure we have the current window ID
+		if (!currentWindowId)
+		{
+			await initCurrentWindowId();
+		}
+
+		const currentTabId = await getCurrentTab();
+		const previousTabId = await getPreviousTab();
+
+		// Если подсветка уже активна, сбрасываем её
+		if (isPreviousTabHighlighted)
+		{
+			try
+			{
+				// Получаем текущую вкладку
+				const currentTab = await chrome.tabs.get(currentTabId);
+
+				// Подсвечиваем только текущую вкладку
+				await chrome.tabs.highlight({
+					tabs: [currentTab.index],
+					windowId: currentWindowId,
+				});
+
+				isPreviousTabHighlighted = false;
+				console.debug('Removed highlight from previous tab');
+			}
+			catch (error)
+			{
+				console.error('Failed to reset tab highlighting:', error);
+			}
+			return;
+		}
+
+		// Если подсветка неактивна, подсвечиваем предыдущую вкладку
+		if (previousTabId !== undefined && currentTabId !== undefined)
+		{
+			try
+			{
+				// Get tab indexes for both tabs
+				const [currentTab, previousTab] = await Promise.all([
+					chrome.tabs.get(currentTabId),
+					chrome.tabs.get(previousTabId),
+				]);
+
+				// Highlight both tabs with current tab first to maintain focus
+				await chrome.tabs.highlight({
+					tabs: [currentTab.index, previousTab.index],
+					windowId: currentWindowId,
+				});
+
+				isPreviousTabHighlighted = true;
+				console.debug('Highlighted previous tab:', previousTabId);
+			}
+			catch (error)
+			{
+				console.error('Failed to highlight tab (tab may not exist):', error);
+				// Refresh tab store if tabs can't be found
+				await refreshTabsForWindow(currentWindowId);
+			}
+		}
+		else
+		{
+			console.debug('No previous tab found for highlighting');
+		}
+	}
+	catch (error)
+	{
+		console.error('Error in highlightPreviousTab:', error);
 	}
 }
 
