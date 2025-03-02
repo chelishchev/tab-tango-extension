@@ -31,7 +31,7 @@
 			}
 		}
 	},
-	"description": "Tab Tango is a streamlined Chrome extension crafted for the ultimate browsing efficiency. Toggle between your most recently used tabs with a simple keyboard shortcut, ensuring a smooth and intuitive navigation experience. Enhanced with a quick tab duplication feature, Tab Tango keeps your workflow fluid and dynamic. Perfect for multitaskers and power users looking to optimize their browser usage without the fuss.",
+	"description": "Tab Tango: Simplify browsing. Switch tabs with a shortcut. Duplicate tabs easily for a fluid workflow.",
 	"icons": {
 		"128": "assets/icons/icon_128.png",
 		"16": "assets/icons/icon_16.png",
